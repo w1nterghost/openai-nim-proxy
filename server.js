@@ -37,7 +37,7 @@ app.get('/health', (req, res) => {
     status: 'ok', 
     service: 'OpenAI to NVIDIA NIM Proxy', 
     reasoning_display: SHOW_REASONING,
-    thinking_mode: ENABLE_THINKING_MODE
+    thinking_mode: DISABLE_THINKING_MODE
   });
 });
 
@@ -96,8 +96,8 @@ app.post('/v1/chat/completions', async (req, res) => {
       model: nimModel,
       messages: messages,
       temperature: temperature || 0.6,
-      max_tokens: max_tokens || 9024,
-      extra_body: ENABLE_THINKING_MODE ? { chat_template_kwargs: { thinking: true } } : undefined,
+      max_tokens: max_tokens || 128000,
+      extra_body: ENABLE_THINKING_MODE ? { chat_template_kwargs: { thinking: false } } : undefined,
       stream: stream || false
     };
     
